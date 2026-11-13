@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Ask search engines, AI crawlers and archivers not to index, snippet, cache or train on this page -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate, noai, noimageai">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="GPTBot" content="noindex, nofollow">
+<meta name="CCBot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>DimensionsAI FAQs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#f5f7fa; --canvas:#ffffff; --hover:#eceef5;
+    --rule:#d8dbe8; --rule-strong:#a0abbe;
+    --ink:#1e1e1e; --ink-2:#475066; --ink-3:#6b7a90;
+    --accent:#02579b; --accent-soft:#dce8ff; --highlight:#e2d4ff;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --r-btn:8px; --r-card:14px; --r-pill:999px;
+    --snappy:cubic-bezier(.32,.72,0,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--sans);font-size:16px;line-height:24px;color:var(--ink);background:var(--canvas)}
+  .shell{min-height:100vh;padding:8px}
+  .panel{background:var(--page);border:1px solid var(--rule);border-radius:8px;min-height:calc(100vh - 16px);padding:40px 24px 56px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{margin:0;font-size:24px;line-height:36px;font-weight:600;letter-spacing:-.6px}
+  .sub{margin:4px 0 0;color:var(--ink-2);font-size:14px;line-height:20px}
+
+  .controls{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 12px}
+  .search{flex:1 1 320px;position:relative}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3)}
+  .search input{width:100%;height:44px;padding:0 40px 0 38px;font:inherit;font-size:15px;color:var(--ink);background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-btn);outline:none;transition:border-color .12s var(--snappy),box-shadow .12s var(--snappy)}
+  .search input::placeholder{color:var(--ink-3)}
+  .search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(2,87,155,.15)}
+  .clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--ink-3);cursor:pointer;display:none;font-size:18px;line-height:1}
+  .clear:hover{background:var(--hover)}
+  select{height:44px;min-width:200px;padding:0 12px;font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-btn);cursor:pointer}
+  select:focus-visible{outline:2px solid rgba(2,87,155,.4);outline-offset:1px}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink-2);background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-pill);cursor:pointer;transition:background-color .12s var(--snappy),border-color .12s var(--snappy),color .12s var(--snappy)}
+  .chip:hover{background:var(--hover)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .chip .n{font-weight:500;opacity:.7}
+  .chip:focus-visible{outline:2px solid rgba(2,87,155,.4);outline-offset:2px}
+
+  .count{font-size:13px;font-weight:600;color:var(--ink-2);margin:0 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+  .card{background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-card);padding:20px;display:flex;flex-direction:column;gap:10px}
+  .tag{align-self:flex-start;font-size:12px;line-height:18px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1px 8px}
+  .draft{align-self:flex-start;font-size:11px;font-weight:600;color:var(--ink-2);background:var(--hover);border-radius:5px;padding:0 6px;margin-left:6px}
+  .toprow{display:flex;align-items:center}
+  .q{margin:0;font-size:16px;line-height:24px;font-weight:600;letter-spacing:-.2px}
+  .a{margin:0;font-size:14px;line-height:21px;color:var(--ink-2);white-space:pre-line}
+  .a.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .a a{color:var(--ink);font-weight:600;text-decoration:none;border-bottom:1px solid var(--rule-strong);transition:border-color .15s}
+  .a a:hover{border-bottom-color:var(--ink)}
+  .more{align-self:flex-start;padding:0;border:0;background:none;font:inherit;font-size:14px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--rule-strong);cursor:pointer;line-height:20px}
+  .more:hover{border-bottom-color:var(--ink)}
+  mark{background:var(--highlight);color:inherit;border-radius:3px;padding:0 1px}
+
+  .state{background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-card);padding:32px;text-align:center;color:var(--ink-2);font-size:14px}
+  .state strong{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+  .foot{margin-top:24px;font-size:12px;color:var(--ink-3)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width:600px){.panel{padding:24px 16px 40px}select{width:100%}}
+</style>
+</head>
+<body>
+<div class="shell"><div class="panel"><div class="wrap">
+  <h1>DimensionsAI FAQs</h1>
+  <p class="sub">Answers to common questions about DimensionsAI.</p>
+
+  <div class="controls">
+    <label class="search">
+      <span class="sr">Search FAQs by keyword</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search FAQs by keyword…" autocomplete="off">
+      <button id="clear" class="clear" type="button" aria-label="Clear search">×</button>
+    </label>
+    <label><span class="sr">Filter by topic</span><select id="topic"><option value="">All topics</option></select></label>
+  </div>
+
+  <div id="chips" class="chips" role="group" aria-label="Topics"></div>
+
+  <p id="count" class="count" aria-live="polite"></p>
+  <div id="grid" class="grid"></div>
+  <p id="foot" class="foot"></p>
+</div></div></div>
+
+<script>
+/* ------------------------------------------------------------------
+   CONFIG
+   SHEET_CSV_URL: Google Sheet > File > Share > Publish to web >
+   choose the FAQ sheet + "Comma-separated values (.csv)" > Publish,
+   then paste the link here. The page reloads data on every visit and
+   every REFRESH_MINUTES while open.
+------------------------------------------------------------------- */
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYAMQ_bZ1TPldvitBAboCWtpG23Cqq94irFQxLuAm8zBsmDhl4ilN3l_PKX2-nykiWDbgk4bEMwbQ8/pub?gid=391601673&single=true&output=csv";
+const SHOW_STATUSES = ["Approved"];   // only Approved rows are shown
+const SHOW_DRAFT_BADGE = false;
+const REFRESH_MINUTES = 5;
+
+const $ = id => document.getElementById(id);
+let rows = [], activeTopic = "", query = "";
+
+/* Minimal RFC-4180 CSV parser (handles quotes, commas, newlines in cells) */
+function parseCSV(text){
+  const out=[]; let row=[], cell="", inQ=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else inQ=false; }
+      else cell+=c;
+    } else if(c==='"') inQ=true;
+    else if(c===','){ row.push(cell); cell=""; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n') i++; row.push(cell); out.push(row); row=[]; cell=""; }
+    else cell+=c;
+  }
+  if(cell!==""||row.length){ row.push(cell); out.push(row); }
+  return out;
+}
+
+const esc = s => s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+/* "text (https://…)" in the sheet becomes a link; matches are highlighted */
+function renderAnswer(text, terms){
+  if(!text) return '<span style="color:var(--ink-3)">Answer coming soon.</span>';
+  let html = esc(text);
+  /* "Link text (https://…)" pairs become links, one per line; Google's tracking suffix is stripped */
+  html = html.replace(/\s*([^()]*?\S)\s*\((https?:\/\/[^\s)]+)\)\.?\s*/g, (m,label,url)=>{
+    url = url.replace(/&amp;sa=D.*$/,"").replace(/&sa=D.*$/,"");
+    return `<a href="${url}" target="_blank" rel="noopener">${label.trim()}</a>\n`;
+  }).replace(/\n+$/,"");
+  if(terms.length){
+    const re = new RegExp("("+terms.map(escRe).join("|")+")(?![^<]*>)","gi");
+    html = html.replace(re,"<mark>$1</mark>");
+  }
+  return html;
+}
+function hl(text, terms){
+  let html = esc(text);
+  if(terms.length){ html = html.replace(new RegExp("("+terms.map(escRe).join("|")+")","gi"),"<mark>$1</mark>"); }
+  return html;
+}
+
+function load(){
+  return fetch(SHEET_CSV_URL + (SHEET_CSV_URL.includes("?")?"&":"?") + "t=" + Date.now())
+    .then(r=>{ if(!r.ok) throw new Error(r.status); return r.text(); })
+    .then(txt=>{
+      const t = parseCSV(txt);
+      const head = t.shift().map(h=>h.trim().toLowerCase());
+      const ix = (n,d) => { const i = head.indexOf(n); return i>=0 ? i : d; };  /* falls back to column order */
+      const iT=ix("topic",0), iQ=ix("question",1), iA=ix("answer",2), iS=ix("status",3);
+      const all = t.map(r=>({
+        topic:(r[iT]||"").trim(),
+        q:(r[iQ]||"").trim(),
+        a:(r[iA]||"").trim(),
+        status:(r[iS]||"").trim()
+      })).filter(r=>r.q);
+      const wanted = SHOW_STATUSES.map(s=>s.toLowerCase());
+      rows = all.filter(r=>wanted.includes(r.status.toLowerCase()));
+      loaded = true;
+      render();
+      $("foot").textContent = rows.length ? "" : `Loaded ${all.length} FAQs from the sheet, but none are marked Approved yet.`;
+    });
+}
+
+function matchesKeywords(r, terms){
+  const hay=(r.topic+" "+r.q+" "+r.a.replace(/\(https?:\/\/[^)]*\)/g,"")).toLowerCase();
+  return terms.every(t=>hay.includes(t.toLowerCase()));
+}
+
+/* Dropdown + pills follow the keyword search: only topics with matches are listed, with match counts.
+   Once a topic is chosen, only its pill remains (click it to clear). */
+function updateFilters(terms){
+  const kw = rows.filter(r=>matchesKeywords(r,terms));
+  const counts={}, order=[];
+  rows.forEach(r=>{ if(!order.includes(r.topic)) order.push(r.topic); });
+  order.forEach(t=>counts[t]=0);
+  kw.forEach(r=>counts[r.topic]++);
+  const shown = order.filter(t=>counts[t]>0 || t===activeTopic);
+  const sel=$("topic");
+  sel.innerHTML = `<option value="">All topics (${kw.length})</option>` + shown.map(t=>`<option value="${esc(t)}">${esc(t)} (${counts[t]})</option>`).join("");
+  sel.value = order.includes(activeTopic) ? activeTopic : "";
+  activeTopic = sel.value;
+  const chips=$("chips");
+  if(activeTopic){
+    chips.innerHTML = `<button class="chip" type="button" data-topic="" aria-pressed="true" aria-label="Clear topic filter: ${esc(activeTopic)}">${esc(activeTopic)} <span class="n">${counts[activeTopic]}</span> <span aria-hidden="true">×</span></button>`;
+  } else {
+    chips.innerHTML = [["", "All", kw.length], ...shown.map(t=>[t,t,counts[t]])]
+      .map(([v,l,n])=>`<button class="chip" type="button" data-topic="${esc(v)}" aria-pressed="${v===activeTopic}">${esc(l)} <span class="n">${n}</span></button>`).join("");
+  }
+}
+
+let loaded = false;
+function render(){
+  if(!loaded) return;   /* never overwrite a load error with "No matching FAQs" */
+  const terms = query.trim().split(/\s+/).filter(Boolean);
+  updateFilters(terms);
+  const hits = rows.filter(r=>(!activeTopic || r.topic===activeTopic) && matchesKeywords(r,terms));
+  $("count").textContent = hits.length + (hits.length===1?" FAQ":" FAQs") + " found";
+  const grid=$("grid");
+  if(!hits.length){
+    grid.innerHTML = '<div class="state" style="grid-column:1/-1"><strong>No matching FAQs</strong>Try a different keyword or choose another topic.</div>';
+    return;
+  }
+  grid.innerHTML = hits.map((r,i)=>{
+    const long = r.a.replace(/\(https?:\/\/[^)]*\)/g,"").length > 190;
+    return `<article class="card">
+      <div class="toprow"><span class="tag">${hl(r.topic,terms)}</span>${SHOW_DRAFT_BADGE&&r.status==="Draft"?'<span class="draft">Draft</span>':''}</div>
+      <h2 class="q">${hl(r.q,terms)}</h2>
+      <p class="a${long?" clamp":""}" id="a${i}">${renderAnswer(r.a,terms)}</p>
+      ${long?`<button class="more" type="button" aria-expanded="false" aria-controls="a${i}">Read more</button>`:""}
+    </article>`;
+  }).join("");
+}
+
+$("q").addEventListener("input",e=>{ query=e.target.value; $("clear").style.display=query?"block":"none"; render(); });
+$("clear").addEventListener("click",()=>{ $("q").value=""; query=""; $("clear").style.display="none"; render(); $("q").focus(); });
+$("topic").addEventListener("change",e=>{ activeTopic=e.target.value; render(); });
+$("chips").addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(!b) return; activeTopic=b.dataset.topic; render(); });
+$("grid").addEventListener("click",e=>{
+  const b=e.target.closest(".more"); if(!b) return;
+  const p=document.getElementById(b.getAttribute("aria-controls"));
+  const open=p.classList.toggle("clamp")===false;
+  b.setAttribute("aria-expanded",open); b.textContent=open?"Show less":"Read more";
+});
+
+function start(){
+  if(SHEET_CSV_URL.startsWith("PASTE_")){
+    $("grid").innerHTML='<div class="state" style="grid-column:1/-1"><strong>Not connected yet</strong>Add the published Google Sheet CSV link to SHEET_CSV_URL in this file.</div>';
+    return;
+  }
+  load().catch(()=>{
+    const local = location.protocol === "file:";
+    $("grid").innerHTML='<div class="state" style="grid-column:1/-1"><strong>Couldn\'t load the FAQs</strong>' +
+      (local ? 'This page was opened as a local file, and browsers block local files from reading the Google Sheet. Open it from a web address (https://…) instead, for example once it is hosted or embedded in the Learning Center.'
+             : 'Please refresh the page in a moment.') + '</div>';
+  });
+  setInterval(()=>load().catch(()=>{}), REFRESH_MINUTES*60000);
+}
+start();
+</script>
+</body>
+</html>
