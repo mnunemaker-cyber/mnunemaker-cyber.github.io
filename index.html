@@ -131,15 +131,38 @@ function parseCSV(text){
 const esc = s => s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
 
-/* "text (https://…)" in the sheet becomes a link; matches are highlighted */
+/* Links in the sheet. Only the link text becomes a link, inline, never the whole answer.
+   Preferred:  [link text](https://…)      Also works: a bare https://… address
+   Older style "Link text (https://…)": the link text is taken back to the start of the sentence,
+   after leading words like "See" or "and". Google's tracking suffix is stripped. */
+function linkify(html){
+  const re=/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s<)]*[^\s<).,;:!?])/g;
+  const clean=u=>u.replace(/&amp;sa=D.*$/,"");
+  const a=(u,l)=>`<a href="${clean(u)}" target="_blank" rel="noopener">${l}</a>`;
+  const lead=/^\s*(?:see also|see|read|and|or|also|learn more in|learn more)\b[:,]?\s+/i;
+  let out="", last=0, m;
+  while((m=re.exec(html))){
+    const seg=html.slice(last,m.index);
+    if(m[1]){ out+=seg+a(m[2],m[1]); }
+    else if(m[3]){
+      let start=0, bm; const b=/[.!?]\s+(?=[A-Z])/g;
+      while((bm=b.exec(seg))) start=bm.index+bm[0].length;
+      let pre=seg.slice(0,start), label=seg.slice(start), mm;
+      while((mm=lead.exec(label))){ pre+=mm[0]; label=label.slice(mm[0].length); }
+      label=label.trim();
+      out+= label ? pre+a(m[3],label) : seg+a(m[3],m[3]);
+    }
+    else { out+=seg+a(m[4],m[4]); }
+    last=re.lastIndex;
+  }
+  return out+html.slice(last);
+}
+const stripLinks = s => s.replace(/\[([^\]]+)\]\(https?:\/\/[^)]*\)/g,"$1").replace(/\s*\(https?:\/\/[^)]*\)/g,"");
+
+/* matches are highlighted */
 function renderAnswer(text, terms){
   if(!text) return '<span style="color:var(--ink-3)">Answer coming soon.</span>';
-  let html = esc(text);
-  /* "Link text (https://…)" pairs become links, one per line; Google's tracking suffix is stripped */
-  html = html.replace(/\s*([^()]*?\S)\s*\((https?:\/\/[^\s)]+)\)\.?\s*/g, (m,label,url)=>{
-    url = url.replace(/&amp;sa=D.*$/,"").replace(/&sa=D.*$/,"");
-    return `<a href="${url}" target="_blank" rel="noopener">${label.trim()}</a>\n`;
-  }).replace(/\n+$/,"");
+  let html = linkify(esc(text));
   if(terms.length){
     const re = new RegExp("("+terms.map(escRe).join("|")+")(?![^<]*>)","gi");
     html = html.replace(re,"<mark>$1</mark>");
@@ -175,7 +198,7 @@ function load(){
 }
 
 function matchesKeywords(r, terms){
-  const hay=(r.topic+" "+r.q+" "+r.a.replace(/\(https?:\/\/[^)]*\)/g,"")).toLowerCase();
+  const hay=(r.topic+" "+r.q+" "+stripLinks(r.a)).toLowerCase();
   return terms.every(t=>hay.includes(t.toLowerCase()));
 }
 
@@ -214,7 +237,7 @@ function render(){
     return;
   }
   grid.innerHTML = hits.map((r,i)=>{
-    const long = r.a.replace(/\(https?:\/\/[^)]*\)/g,"").length > 190;
+    const long = stripLinks(r.a).length > 190;
     return `<article class="card">
       <div class="toprow"><span class="tag">${hl(r.topic,terms)}</span>${SHOW_DRAFT_BADGE&&r.status==="Draft"?'<span class="draft">Draft</span>':''}</div>
       <h2 class="q">${hl(r.q,terms)}</h2>
